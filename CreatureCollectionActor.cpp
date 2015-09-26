@@ -41,9 +41,11 @@ ACreatureCollectionActor::ACreatureCollectionActor(const FObjectInitializer& Obj
 	RootComponent = default_mesh;
 
 	// Generate a single dummy triangle
+	/*
 	TArray<FProceduralMeshTriangle> triangles;
 	GenerateTriangle(triangles);
 	default_mesh->SetProceduralMeshTriangles(triangles);
+	*/
 }
 
 void ACreatureCollectionActor::AddBluePrintCollectionClipData(FString clipName, ACreatureActor * creatureActor, FString creatureActorClipName)
@@ -125,7 +127,7 @@ void ACreatureCollectionActor::UpdateActorAnimationToStart(ACreatureCollectionCl
 	auto cur_actor = cur_data.first;
 
 	cur_actor = cur_data.first;
-	cur_actor->SetActiveAnimation(cur_data.second);
+	cur_actor->SetBluePrintActiveAnimation(FString(cur_data.second.c_str()));
 	cur_actor->SetBluePrintAnimationResetToStart();
 }
 
@@ -175,7 +177,7 @@ ACreatureCollectionActor::AreAllActorsReady() const
 		for (auto& cur_data : collection_data.second.actor_sequence)
 		{
 			auto cur_actor = cur_data.first;
-			if (cur_actor->GetIsReadyPlay() == false)
+			if (cur_actor->GetCore().GetIsReadyPlay() == false)
 			{
 				return false;
 			}
